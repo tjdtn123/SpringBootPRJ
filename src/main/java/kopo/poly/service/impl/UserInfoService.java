@@ -20,12 +20,15 @@ public class UserInfoService implements IUserInfoService {
     }
 
 
+
+
     @Transactional
+
     @Override
-    public void InsertUserInfo(UserInfoDTO pDTO) throws Exception {
+    public void InsertUserInfo(UserInfoDTO uDTO) throws Exception {
         log.info(this.getClass().getName() + ".InsertUserInfo start!");
 
-       userinfoMapper.InsertUserInfo(pDTO);
+       userinfoMapper.InsertUserInfo(uDTO);
 
     }
 }
