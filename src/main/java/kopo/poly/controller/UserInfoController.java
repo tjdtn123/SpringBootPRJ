@@ -39,6 +39,12 @@ public class UserInfoController {
         return "/register";
 
     }
+    @GetMapping(value = "werwer")
+    public String Werwer() {
+        System.out.println("hi");
+        return "/werwer";
+
+    }
 
     @PostMapping(value = "Userinfoinsert")
     public String userinfoInsert(HttpSession session, HttpServletRequest request, ModelMap model) {

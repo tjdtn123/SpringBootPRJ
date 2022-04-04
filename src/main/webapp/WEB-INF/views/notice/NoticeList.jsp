@@ -127,12 +127,9 @@
         <td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %>
         </td>
     </tr>
-    <%
-        }
-    %>
 </table>
 <a href="/notice/NoticeReg">[글쓰기]</a>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/scripts.js"></script>
 </body>
 </html>

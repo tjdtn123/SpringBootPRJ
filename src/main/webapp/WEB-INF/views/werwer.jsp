@@ -15,13 +15,11 @@
         <link rel="icon" type="image/x-icon" href="static/assets/wallpaper.jpg" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="static/css/styles.css" rel="stylesheet" />
-    <!--
         <style>
             body {
                 background-image : url("static/assets/wallpaper.jpg");
             }
         </style>
-    -->
         <style>
             right{
                 float: right;
@@ -52,80 +50,17 @@
         </div>
     </div>
 </nav>
-<br>
 <!-- Page Content-->
 <section>
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5">
             <div class="col-lg-6">
-                <h1 class="mt-5">The Big Picture</h1>
+                <h1 class="mt-5">HelloWorld</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt voluptates rerum eveniet sapiente repellat esse, doloremque quod recusandae deleniti nostrum assumenda vel beatae sed aut modi nesciunt porro quisquam voluptatem.</p>
             </div>
         </div>
     </div>
 </section>
-<div class='weather'>
-    <div class = 'CurrIcon'></div>
-    <div class = 'CurrTemp'></div>
-    <div class = 'City'></div>
-</div>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<script>
-$(document).ready(function(){
-    $.ajax(
-    {
-        url: 'https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=578bcf4716e39500f688dda050a3491b&units=metric',
-        dataType: 'json',
-        type: 'GET',
-        success: function(data)
-        {
-            var $Icon = (data.weather[0].icon);
-            var $Temp = Math.floor(data.main.temp) + '。';
-            var $city = data.name;
-
-            $('.CurrIcon').append('http://openweathermap.org/img/wn/10d@2x.png' + $Icon + '@2x.png');
-            $('.CurrTemp').prepend($Temp);
-            $('.City').append($city);
-        }
-    }
-    )
-});
-</script>
-<!--
-<script>
-    $(document).ready(function(){
-        let weatherIcon = {
-            '01' : 'fas fa-sun',
-            '02' : 'fas fa-cloud-sun',
-            '03' : 'fas fa-cloud',
-            '04' : 'fas fa-cloud-meatball',
-            '09' : 'fas fa-cloud-sun-rain',
-            '10' : 'fas fa-cloud-showers-heavy',
-            '11' : 'fas fa-poo-storm',
-            '13' : 'fas fa-snowflake',
-            '50' : 'fas fa-smog'
-        };
-
-        $.ajax(
-            {
-                url: 'https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=578bcf4716e39500f688dda050a3491b&units=metric',
-                dataType: 'json',
-                type: 'GET',
-                success: function(data)
-                {
-                    var $Icon = (data.weather[0].icon).substring(0,2);
-                    var $Temp = Math.floor(data.main.temp) + '。';
-                    var $city = data.name;
-
-                    $('.CurrIcon').append('<i class="' + weatherIcon[$Icon] + '"></i>');
-                    $('.CurrTemp').prepend($Temp);
-                    $('.City').append($city);
-                }
-             }
-        )
-    });
-</script>
--->
 
 <%--Hello World
 <input type="button" class="butten" value="천문현상" onclick="location.href='test/happen'">
