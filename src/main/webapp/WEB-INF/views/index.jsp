@@ -15,21 +15,45 @@
         <link rel="icon" type="image/x-icon" href="static/assets/wallpaper.jpg" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="static/css/styles.css" rel="stylesheet" />
-    <!--
+
+        <link rel="stylesheet" href="static/css/clock.css">
+
+
         <style>
             body {
                 background-image : url("static/assets/wallpaper.jpg");
-            }
-        </style>
-    -->
-        <style>
-            right{
-                float: right;
+
             }
         </style>
 
+    <style>
+        .weather{
+            color: white;
+        }
+        .CurrIcon, .CurrTemp{
+            display: inline-block;
+            font-size: 3rem;
+            text-align: center;
+        }
+        .CurrIcon{
+            margin-right: 2px;
+        }
+        .City{
+            font-size: 3rem;
+            text-align: center;
+        }
+        .onecard img{
+            float: left;
+        }
+        .right{
+             float: right;
+         }
+    </style>
+
+    <script src="https://kit.fontawesome.com/2dc1583151.js" crossorigin="anonymous"></script>
+
 </head>
-<body>
+<body class="bg-primary">
 <!-- Navigation-->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -56,42 +80,30 @@
 <!-- Page Content-->
 <section>
     <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5">
+         <div class="row gx-4 gx-lg-5">
             <div class="col-lg-6">
-                <h1 class="mt-5">The Big Picture</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt voluptates rerum eveniet sapiente repellat esse, doloremque quod recusandae deleniti nostrum assumenda vel beatae sed aut modi nesciunt porro quisquam voluptatem.</p>
+                <h1 class="mt-5 weather" >The Big Picture</h1>
+                <p class="weather">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt voluptates rerum eveniet sapiente repellat esse, doloremque quod recusandae deleniti nostrum assumenda vel beatae sed aut modi nesciunt porro quisquam voluptatem.</p>
             </div>
         </div>
     </div>
 </section>
-<div class='weather'>
+<!-- Weather Content -->
+<br>
+<div class='weather' align="center" >
     <div class = 'CurrIcon'></div>
     <div class = 'CurrTemp'></div>
     <div class = 'City'></div>
 </div>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<script>
-$(document).ready(function(){
-    $.ajax(
-    {
-        url: 'https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=578bcf4716e39500f688dda050a3491b&units=metric',
-        dataType: 'json',
-        type: 'GET',
-        success: function(data)
-        {
-            var $Icon = (data.weather[0].icon);
-            var $Temp = Math.floor(data.main.temp) + '。';
-            var $city = data.name;
 
-            $('.CurrIcon').append('http://openweathermap.org/img/wn/10d@2x.png' + $Icon + '@2x.png');
-            $('.CurrTemp').prepend($Temp);
-            $('.City').append($city);
-        }
-    }
-    )
-});
-</script>
-<!--
+<div>
+    <h1 class = "h1-clock weather"></h1>
+</div>
+
+
+<!-- ajax -->
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<!-- Weather script-->
 <script>
     $(document).ready(function(){
         let weatherIcon = {
@@ -108,13 +120,13 @@ $(document).ready(function(){
 
         $.ajax(
             {
-                url: 'https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=578bcf4716e39500f688dda050a3491b&units=metric',
+                url: 'http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=578bcf4716e39500f688dda050a3491b&units=metric',
                 dataType: 'json',
                 type: 'GET',
                 success: function(data)
                 {
                     var $Icon = (data.weather[0].icon).substring(0,2);
-                    var $Temp = Math.floor(data.main.temp) + '。';
+                    var $Temp = Math.floor(data.main.temp) + '˚';
                     var $city = data.name;
 
                     $('.CurrIcon').append('<i class="' + weatherIcon[$Icon] + '"></i>');
@@ -125,7 +137,9 @@ $(document).ready(function(){
         )
     });
 </script>
--->
+
+
+
 
 <%--Hello World
 <input type="button" class="butten" value="천문현상" onclick="location.href='test/happen'">
@@ -153,6 +167,9 @@ $(document).ready(function(){
         });
 </script>
 --%>
+
+<script src = "static/js/clock.js"></script>
+
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" type=""></script>
 <!-- Core theme JS-->

@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
-    <body>
+
     <!-- Navigation-->
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -99,6 +99,6 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="static/js/scripts.js"></script>
     </body>
 </html>
