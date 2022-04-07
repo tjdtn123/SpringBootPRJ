@@ -120,8 +120,8 @@ function calBytes(str){
 		</tr>
 		<tr>
 			<td align="center">공지글 여부</td>
-			<td>예<input type="radio" name="noticeYn" value="Y" />
-			        아니오<input type="radio" name="noticeYn" value="N" />
+			<td>예<input type="radio" name="noticeYn" value="1" />
+			        아니오<input type="radio" name="noticeYn" value="2" />
 			</td>
 		</tr>
 		<tr>

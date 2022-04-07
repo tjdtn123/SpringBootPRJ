@@ -10,7 +10,7 @@ public interface IUserInfoMapper {
 	//List<NoticeDTO> getNoticeList() throws Exception;
 	
 	//회원 가입
-	void InsertUserInfo(UserInfoDTO pDTO) throws Exception;
+	void InsertUserInfo(UserInfoDTO uDTO) throws Exception;
 		/*
 	//게시판 상세보기
 	NoticeDTO getNoticeInfo(NoticeDTO pDTO) throws Exception;

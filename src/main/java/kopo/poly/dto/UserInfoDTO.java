@@ -20,10 +20,7 @@ import lombok.Setter;
         private String email; //
         private String addr1; //
         private String addr2; //
-        private String reg_id; // 등록자 아이디
         private String reg_dt; // 등록일
-        private String chg_id; // 수정자 아이디
-        private String chg_dt; // 수정일
 
 
 

@@ -8,12 +8,12 @@
 	<insert id="InsertUserInfo" parameterType="UserInfoDTO">
 		INSERT INTO USER_INFO
 			(
-				USER_ID, USER_NAME, PASSWORD, EMAIL, ADDR1, ADDR2,
-		      	REG_ID, REG_DT, CHG_ID, CHG_DT, USER_SEQ
+				USER_SEQ, USER_ID, USER_NAME, PASSWORD, EMAIL, ADDR1, ADDR2,
+		      	REG_DT
 			)
 		VALUES(
 			(SELECT NULLIF (MAX(A.USER_SEQ),0)+1 FROM USER_INFO A),
-			#{title}, #{notice_yn}, #{contents}, #{user_id}, 0, #{user_id}, SYSDATE(), #{user_id}, SYSDATE(),#{user_seq}
+			#{user_id}, #{user_name}, #{password}, #{email}, #{addr1}, #{addr2}, SYSDATE()
 		)
 	</insert>
 
