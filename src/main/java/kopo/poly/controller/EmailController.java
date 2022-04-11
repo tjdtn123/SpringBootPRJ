@@ -18,7 +18,7 @@ public class EmailController {
     @Autowired
     private EmailService EmailService;
 
-    @PostMapping("register")
+    @PostMapping("/register/email")
     @ResponseBody
     private int sendEmail(HttpServletRequest request, String userEmail) {
         HttpSession session = request.getSession();
@@ -28,6 +28,14 @@ public class EmailController {
         EmailService.mailSend(session, userEmail);
         return 123;
 
+    }
+    @PostMapping("/register/certification")
+    @ResponseBody
+    private boolean emailCertification(HttpServletRequest request, String userEmail, String inputCode){
+        HttpSession session = request.getSession();
+        boolean result = EmailService.emailCertification(session, userEmail, Integer.parseInt(inputCode));
+
+        return result;
     }
 
 }

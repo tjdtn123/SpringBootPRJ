@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +48,7 @@ public class UserInfoController {
 
     }
 
-    @PostMapping(value = "Userinfoinsert")
+    @PostMapping(value = "/Userinfoinsert")
     public String userinfoInsert(HttpSession session, HttpServletRequest request, ModelMap model) {
 
         log.info(this.getClass().getName() + ".UserInfoInsert start!");
@@ -57,27 +59,33 @@ public class UserInfoController {
             /*
              * 게시판 글 등록되기 위해 사용되는 form객체의 하위 input 객체 등을 받아오기 위해 사용함
              */
-            //String user_id = CmmUtil.nvl((String) session.getAttribute("SESSION_USER_ID"));
-            String title = CmmUtil.nvl(request.getParameter("title")); // 제목
-            String noticeYn = CmmUtil.nvl(request.getParameter("noticeYn")); // 공지글 여부
-            String contents = CmmUtil.nvl(request.getParameter("contents")); // 내용
+            String user_id = CmmUtil.nvl(request.getParameter("user_id"));
+            String password = CmmUtil.nvl(request.getParameter("password")); // 제목
+            String user_name = CmmUtil.nvl(request.getParameter("user_name"));
+            String email = CmmUtil.nvl(request.getParameter("emailText")); // 공지글 여부
+            String addr1 = CmmUtil.nvl(request.getParameter("addr1")); // 내용
+            String addr2 = CmmUtil.nvl(request.getParameter("addr2"));
 
             /*
              * ####################################################################################
              * 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함 반드시 작성할 것
              * ####################################################################################
              */
-            //log.info("user_id : " + user_id);
-            log.info("title : " + title);
-            log.info("noticeYn : " + noticeYn);
-            log.info("contents : " + contents);
+            log.info("user_id : " + user_id);
+            log.info("password : " + password);
+            log.info("user_name : " + user_name);
+            log.info("email : " + email);
+            log.info("addr1 : " + addr1);
+            log.info("addr2 : " + addr2);
 
             UserInfoDTO uDTO = new UserInfoDTO();
 
-           // uDTO.setUser_id(user_id);
-          //  uDTO.setTitle(title);
-          //  uDTO.setNotice_yn(noticeYn);
-          //  uDTO.setContents(contents);
+            uDTO.setUser_id(user_id);
+            uDTO.setPassword(password);
+            uDTO.setUser_name(user_name);
+            uDTO.setEmail(email);
+            uDTO.setAddr1(addr1);
+            uDTO.setAddr2(addr2);
 
             /*
              * 게시글 등록하기위한 비즈니스 로직을 호출
@@ -103,7 +111,17 @@ public class UserInfoController {
 
         }
 
-        return "/userinfoinsert";
+        return "/login";
+    }
+
+    @PostMapping("/register/idCheck")
+    @ResponseBody
+    public int idCheck(@RequestParam("user_id") String id){
+        log.info("userIdCheck 진입");
+        log.info("전달받은 id:"+id);
+        int cnt = userInfoService.idCheck(id);
+        log.info("확인 결과:"+cnt);
+        return cnt;
     }
 
 }

@@ -52,5 +52,19 @@ public class EmailService {
 
 
     }
+
+    public boolean emailCertification(HttpSession session, String userEmail, int inputCode){
+        try {
+            int generationCode = (int) session.getAttribute(userEmail);
+
+            if(generationCode == inputCode){
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            throw e;
+        }
+    }
 }
 

@@ -25,5 +25,6 @@ public interface IUserInfoMapper {
 	void deleteNoticeInfo(NoticeDTO pDTO) throws Exception;
 
 	 */
+	public int idCheck(String id);
 	
 }
