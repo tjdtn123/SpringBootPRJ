@@ -30,8 +30,8 @@ pageEncoding="UTF-8"%>
                                                 <label for="inputEmail">Email address</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="login.jsp">Return to login</a>
-                                                <a class="btn btn-primary" href="login.jsp">Reset Password</a>
+                                                <a class="small" href="LoginPage.jsp">Return to login</a>
+                                                <a class="btn btn-primary" href="LoginPage.jsp">Reset Password</a>
                                             </div>
                                         </form>
                                     </div>

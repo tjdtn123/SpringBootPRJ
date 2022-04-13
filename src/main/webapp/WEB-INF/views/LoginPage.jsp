@@ -37,7 +37,7 @@ pageEncoding="UTF-8"%>
                     <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
                 </ul>
             </div>
-            <div class="collapse navbar-collapse" id="navbarResponsive" align="right">
+            <div class="collapse navbar-collapse"  align="right">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="#!">로그인</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
@@ -69,27 +69,23 @@ pageEncoding="UTF-8"%>
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <form action="/Login" method="post" onsubmit="return doSubmit(this);">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
+                                                <input class="form-control" id="user_id" name="user_id" type="text" placeholder="user_id" />
+                                                <label for="user_id">아이디</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
-                                                <label for="inputPassword">Password</label>
-                                            </div>
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                                <input class="form-control" id="password" name="password" type="password" placeholder="Password" />
+                                                <label for="password">비밀번호</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password.jsp">Forgot Password?</a>
-                                                <a class="btn btn-primary" href="index.jsp">Login</a>
+                                                <input type="submit" value="로그인">
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.jsp">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="register.jsp">회원가입</a></div>
                                     </div>
                                 </div>
                             </div>

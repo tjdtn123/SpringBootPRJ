@@ -36,5 +36,11 @@ public class UserInfoService implements IUserInfoService {
         int cnt = userinfoMapper.idCheck(id);
         return cnt;
     }
+
+    @Override
+    public int Login(UserInfoDTO uDTO) {
+
+        return userinfoMapper.Login(uDTO);
+    }
 }
 

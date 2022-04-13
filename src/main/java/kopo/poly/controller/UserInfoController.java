@@ -1,5 +1,8 @@
 package kopo.poly.controller;
 
+import io.jsonwebtoken.Header;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import kopo.poly.dto.UserInfoDTO;
 import kopo.poly.service.IUserInfoService;
 import kopo.poly.util.CmmUtil;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.Duration;
+import java.util.Date;
 
 
 /*
@@ -31,9 +36,9 @@ public class UserInfoController {
     @Resource(name = "UserInfoService")
     private IUserInfoService userInfoService;
 
-    @GetMapping(value = "login")
-    public String Login() {
-        return "/login";
+    @GetMapping(value = "LoginPage")
+    public String LoginPage() {
+        return "/LoginPage";
 
     }
     @GetMapping(value = "register")
@@ -41,11 +46,55 @@ public class UserInfoController {
         return "/register";
 
     }
-    @GetMapping(value = "werwer")
-    public String Werwer() {
-        System.out.println("hi");
-        return "/werwer";
 
+
+    @PostMapping("/Login")
+    public String Login(HttpSession session, HttpServletRequest request, ModelMap model) throws Exception {
+
+        log.info(this.getClass().getName() + ".Login start!");
+        String msg = "";
+        String asdf;
+        Date now = new Date();
+
+        String user_id = CmmUtil.nvl(request.getParameter("user_id"));
+        String password = CmmUtil.nvl(request.getParameter("password"));
+
+        log.info("user_id : " + user_id);
+        log.info("password : " + password);
+
+        UserInfoDTO uDTO = new UserInfoDTO();
+
+        uDTO.setUser_id(user_id);
+        uDTO.setPassword(password);
+
+        int result = userInfoService.Login(uDTO);
+
+
+        msg = "로그인 성공";
+
+
+        if (result != 1) {
+            msg = "로그인 실패 : ";
+            model.addAttribute("msg", msg);
+
+            return "/LoginPage";
+        } else {
+            asdf = Jwts.builder()
+                    .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // (1)
+                    .setIssuer("fresh") // (2)
+                    .setIssuedAt(now) // (3)
+                    .setExpiration(new Date(now.getTime() + Duration.ofMinutes(30).toMillis())) // (4)
+                    .claim("id", "아이디") // (5)
+                    .claim("email", "ajufresh@gmail.com")
+                    .signWith(SignatureAlgorithm.HS256, "secret") // (6)
+                    .compact();
+        }
+        log.info(asdf);
+        log.info(this.getClass().getName() + ".Login end!");
+
+        // 결과 메시지 전달하기
+        model.addAttribute("msg", msg);
+        return "/MsgToLogin";
     }
 
     @PostMapping(value = "/Userinfoinsert")
@@ -111,7 +160,7 @@ public class UserInfoController {
 
         }
 
-        return "/login";
+        return "/MsgToLogin";
     }
 
     @PostMapping("/register/idCheck")

@@ -20,10 +20,13 @@ pageEncoding="UTF-8"%>
             }
 
             .id_ok {
-                color: #fff; display: none;
+                color: #033af5; display: none;
             }
             .id_already{
-                color: #6A82FB; display: none;
+                color: #d40505; display: none;
+            }
+            .id_length{
+                color: #033af5; display: none;
             }
             right {
                 float: right;
@@ -92,26 +95,29 @@ pageEncoding="UTF-8"%>
                 })
             }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ아이디 중복 체크ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
             function idCheck(){
-                var user_id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
-                $.ajax({
-                    url:'/register/idCheck', //Controller에서 인식할 주소
-                    type:'post', //POST 방식으로 전달
-                    data:{user_id:user_id},
-                    success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
-                        if(cnt >= 1){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                            $('.id_ok').css("display","inline-block");
-                            $('.id_already').css("display", "none");
-                        } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                            $('.id_already').css("display","inline-block");
-                            $('.id_ok').css("display", "none");
+                var user_id = $('#user_id').val();
+                    $.ajax({
+                        url:'/register/idCheck',
+                        type:'post',
+                        data:{user_id:user_id},
+                        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
+                            if(cnt != 1 && user_id.length > 8){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+                                $('.id_ok').css("display","inline-block");
+                                $('.id_already').css("display", "none");
+
+                            } else if (cnt == 1) {// cnt가 1일 경우 -> 이미 존재하는 아이디
+                                $('.id_already').css("display","inline-block");
+                                $('.id_ok').css("display", "none");
+                            }
+                        },
+                            error:function(){
+                            alert("에러입니다");
                         }
-                    },
-                    error:function(){
-                        alert("에러입니다");
-                    }
-                });
+                    });
             };
+
            //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ우편번호ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                 function sample6_execDaumPostcode() {
                 new daum.Postcode({
@@ -219,7 +225,8 @@ pageEncoding="UTF-8"%>
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input class="form-control" id="user_id" name="user_id" type="text" required oninput="idCheck()" />
                                                         <span class="id_ok">사용 가능한 아이디입니다.</span>
-                                                        <span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
+                                                        <span class="id_already">중복된 아이디입니다</span>
+                                                       <!-- <span class="id_length">8자 이상 입력해주세요</span> -->
                                                         <label for="user_id">아이디</label>
 
                                                     </div>
@@ -261,15 +268,13 @@ pageEncoding="UTF-8"%>
                                                         <input type="hidden" name="certificationYN" id="certificationYN" value="false"/>
                                                      </div>
                                                 </div>
-
-
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input type="text" id="sample6_postcode" placeholder="우편번호">
                                                         <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                                                        <input type="text" id="addr1" placeholder="주소"><br>
+                                                        <input type="text" id="addr1" name="addr1" placeholder="주소"><br>
                                                         <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-                                                        <input type="text" id="addr2" placeholder="참고항목">
+                                                        <input type="text" id="addr2" name="addr2" placeholder="참고항목">
                                                     </div>
                                                 </div>
                                             <div class="mt-4 mb-0">
@@ -281,7 +286,7 @@ pageEncoding="UTF-8"%>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="login.jsp">Have an account? Go to login</a></div>
+                                        <div class="small"><a href="LoginPage.jsp">Have an account? Go to login</a></div>
                                     </div>
                                 </div>
                             </div>

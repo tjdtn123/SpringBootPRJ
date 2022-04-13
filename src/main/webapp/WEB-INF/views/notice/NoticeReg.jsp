@@ -91,7 +91,7 @@ function calBytes(str){
 				<li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
 			</ul>
 		</div>
-		<div class="collapse navbar-collapse" id="navbarResponsive" align="right">
+		<div class="collapse navbar-collapse" align="right">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item"><a class="nav-link" href="#!">로그인</a></li>
 				<li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
