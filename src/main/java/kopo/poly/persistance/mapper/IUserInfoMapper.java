@@ -27,5 +27,5 @@ public interface IUserInfoMapper {
 	 */
 	public int idCheck(String id);
 
-	public int Login(UserInfoDTO uDTO);
+	public UserInfoDTO Login(UserInfoDTO uDTO);
 }

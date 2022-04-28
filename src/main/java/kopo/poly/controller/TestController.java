@@ -1,8 +1,5 @@
 package kopo.poly.controller;
 
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,14 +16,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Duration;
-import java.util.Date;
 
 @Slf4j
 @Controller
 public class TestController {
     public static int INDENT_FACTOR = 4;
 
+    @GetMapping(value = "Obs000")
+    public String Obs000() {
+        return "/Obs000";
+
+    }
     @GetMapping(value = "/test")
 
     public String test(ModelMap model) throws MalformedURLException,
@@ -67,19 +67,6 @@ public class TestController {
         model.addAttribute("astroTime", astroTime);
 
     return "Astro/test";
-    }
-    @GetMapping(value = "/werwer")
-    public String makeJwtToken() {
-        Date now = new Date();
 
-        return Jwts.builder()
-                .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // (1)
-                .setIssuer("fresh") // (2)
-                .setIssuedAt(now) // (3)
-                .setExpiration(new Date(now.getTime() + Duration.ofMinutes(30).toMillis())) // (4)
-                .claim("id", "아이디") // (5)
-                .claim("email", "ajufresh@gmail.com")
-                .signWith(SignatureAlgorithm.HS256, "secret") // (6)
-                .compact();
     }
 }

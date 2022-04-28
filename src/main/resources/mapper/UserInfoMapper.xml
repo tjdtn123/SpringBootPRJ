@@ -22,8 +22,8 @@
 		SELECT COUNT(USER_ID) FROM USER_INFO WHERE USER_ID = #{id}
 	</select>
 	<!-- 로그인 -->
-	<select id="Login" parameterType="UserInfoDTO" resultType="int">
-		SELECT COUNT(*)
+	<select id="Login" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+		SELECT USER_ID,PASSWORD,USER_SEQ
 		FROM USER_INFO
 		WHERE USER_ID = #{user_id}
 		  AND PASSWORD = #{password}

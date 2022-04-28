@@ -1,6 +1,17 @@
+<%@ page import="kopo.poly.util.CmmUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%! String id_session;
+    String seq_session;
+%>
+<%if(session.getAttribute("user_id") != null) {
+    id_session = session.getAttribute("user_id").toString();
+    seq_session = session.getAttribute("user_seq").toString();
+}
+%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -48,7 +59,13 @@
         .right{
              float: right;
          }
+        .id_ok {
+            display: block;
+        }
     </style>
+
+
+
 
     <script src="https://kit.fontawesome.com/2dc1583151.js" crossorigin="anonymous"></script>
 
@@ -58,20 +75,27 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container px-4 px-lg-5" >
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <a class="navbar-brand" href="/index">Start Bootstrap</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a class="nav-link" href="/index">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/Star000">별자리</a></li>
+                <li class="nav-item"><a class="nav-link" href="/History000">우주 현상 </a></li>
+                <li class="nav-item"><a class="nav-link" href="Obs000">국내 천문대</a></li>
+                <li class="nav-item"><a class="nav-link" href="notice/NoticeList">게시판</a></li>
             </ul>
         </div>
-        <div class="collapse navbar-collapse" id="navbarResponsive" align="right">
+        <div class="collapse navbar-collapse"  align="right">
             <ul class="navbar-nav ml-auto">
+                <% if(session.getAttribute("user_id") == null){%>
                 <li class="nav-item"><a class="nav-link" href="/LoginPage">로그인</a></li>
+                <%}%>
+                <!--<form  required oninput="Show()">-->
+                <% if(session.getAttribute("user_id") != null){%>
                 <li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Logout">로그아웃</a></li>
+            <%}%>
+                <!--</form>-->
             </ul>
         </div>
     </div>
@@ -101,9 +125,11 @@
 </div>
 
 
+<
 <!-- ajax -->
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <!-- Weather script-->
+
 <script>
     $(document).ready(function(){
         let weatherIcon = {
@@ -138,35 +164,6 @@
     });
 </script>
 
-
-
-
-<%--Hello World
-<input type="button" class="butten" value="천문현상" onclick="location.href='test/happen'">
-<br>
-<input type="button" class="butten" value="공지사항" onclick="location.href='Notice'">
-
-<script
-        src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous">
-</script>
-<script>
-    var url = "https://api.odcloud.kr/api/15067819/v1/uddi:bab0fa12-d7d7-4e47-975c-e35d424ae165";
-    $.ajax({
-        method: "GET",
-        url: url,
-        data: {serviceKey : 'oThJMbfU/WNX0OaMTfVfg7iP/ysoIW9p/tfgGFtccPJjgvoMlTXF+EKwsesm+neiugst4PREez3oA2MOkIcCgQ==',
-            page:'1',
-            perPage:'10'
-        },
-
-    })
-        .done(function( msg ) {
-            console.log(msg);
-        });
-</script>
---%>
 
 <script src = "static/js/clock.js"></script>
 

@@ -38,7 +38,7 @@ public class UserInfoService implements IUserInfoService {
     }
 
     @Override
-    public int Login(UserInfoDTO uDTO) {
+    public UserInfoDTO Login(UserInfoDTO uDTO) {
 
         return userinfoMapper.Login(uDTO);
     }

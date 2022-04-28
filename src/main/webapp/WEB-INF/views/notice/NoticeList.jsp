@@ -6,7 +6,8 @@
 <%@ page import="kopo.poly.dto.NoticeDTO" %>
 <%@ page import="kopo.poly.util.CmmUtil" %>
 <%
-    session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
+    session.getAttribute("user_id");
+    session.getAttribute("user_seq");
 
     List<NoticeDTO> rList = (List<NoticeDTO>) request.getAttribute("rList");
 
@@ -48,23 +49,30 @@
 
     </head>
 <body class="bg-primary">
-
+<script src="https://code.jquery.com/jquery-latest.js"></script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container px-4 px-lg-5" >
-        <a class="navbar-brand" href="http://localhost:8080/index">Start Bootstrap</a>
+        <a class="navbar-brand" href="/index">Start Bootstrap</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/Star000">별자리</a></li>
+                <li class="nav-item"><a class="nav-link" href="/History000">우주 현상 </a></li>
+                <li class="nav-item"><a class="nav-link" href="Obs000">국내 천문대</a></li>
+                <li class="nav-item"><a class="nav-link" href="notice/NoticeList">게시판</a></li>
             </ul>
         </div>
-        <div class="collapse navbar-collapse" id="navbarResponsive" align="right">
+        <div class="collapse navbar-collapse"  align="right">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="#!">로그인</a></li>
+                <% if(session.getAttribute("user_id") == null){%>
+                <li class="nav-item"><a class="nav-link" href="/LoginPage">로그인</a></li>
+                <%}%>
+                <!--<form  required oninput="Show()">-->
+                <% if(session.getAttribute("user_id") != null){%>
                 <li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Logout">로그아웃</a></li>
+                <%}%>
+                <!--</form>-->
             </ul>
         </div>
     </div>
@@ -74,9 +82,6 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5">
             <div class="col-lg-6">
-                <br>
-                <br>
-                <br>
                 <br>
                 <br>
                 <br>
@@ -135,6 +140,7 @@
         }
     %>
 </table>
+
 
 <a href="/notice/NoticeReg">[글쓰기]</a>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

@@ -20,27 +20,36 @@ pageEncoding="UTF-8"%>
             }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+
+        </script>
     </head>
     <body class="bg-primary">
-
     <!-- Navigation-->
-
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container px-4 px-lg-5" >
-            <a class="navbar-brand" href="#!">Start Bootstrap</a>
+            <a class="navbar-brand" href="/index">Start Bootstrap</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/Star000">별자리</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/History000">우주 현상 </a></li>
+                    <li class="nav-item"><a class="nav-link" href="Obs000">국내 천문대</a></li>
+                    <li class="nav-item"><a class="nav-link" href="notice/NoticeList">게시판</a></li>
                 </ul>
             </div>
             <div class="collapse navbar-collapse"  align="right">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#!">로그인</a></li>
+                    <% if(session.getAttribute("user_id") == null){%>
+                    <li class="nav-item"><a class="nav-link" href="/LoginPage">로그인</a></li>
+                    <%}%>
+                    <!--<form  required oninput="Show()">-->
+                    <% if(session.getAttribute("user_id") != null){%>
                     <li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Logout">로그아웃</a></li>
+                    <%}%>
+                    <!--</form>-->
                 </ul>
             </div>
         </div>
@@ -69,7 +78,7 @@ pageEncoding="UTF-8"%>
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
-                                        <form action="/Login" method="post" onsubmit="return doSubmit(this);">
+                                        <form name="l" action="/Login" method="post" onsubmit="return doSubmit(this);">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="user_id" name="user_id" type="text" placeholder="user_id" />
                                                 <label for="user_id">아이디</label>
@@ -79,13 +88,13 @@ pageEncoding="UTF-8"%>
                                                 <label for="password">비밀번호</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.jsp">Forgot Password?</a>
+                                                <a class="small" href="/FindPwd">Forgot Password?</a>
                                                 <input type="submit" value="로그인">
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.jsp">회원가입</a></div>
+                                        <div class="small"><a href="/register">회원가입</a></div>
                                     </div>
                                 </div>
                             </div>

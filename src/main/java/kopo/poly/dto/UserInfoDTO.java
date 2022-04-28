@@ -13,7 +13,7 @@ import lombok.Setter;
     @Getter
     @Setter
     public class UserInfoDTO {
-        private String notice_seq; // 기본키, 순번
+        private String user_seq; // 기본키, 순번
         private String user_id; //
         private String user_name; //
         private String password; //

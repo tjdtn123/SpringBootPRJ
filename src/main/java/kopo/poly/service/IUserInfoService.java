@@ -8,5 +8,5 @@ public interface IUserInfoService {
 
     public int idCheck(String id);
 
-    public int Login(UserInfoDTO uDTO )throws Exception;
+    public UserInfoDTO Login(UserInfoDTO uDTO )throws Exception;
 }

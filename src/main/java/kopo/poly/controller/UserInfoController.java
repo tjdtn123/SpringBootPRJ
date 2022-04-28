@@ -1,8 +1,6 @@
 package kopo.poly.controller;
 
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+
 import kopo.poly.dto.UserInfoDTO;
 import kopo.poly.service.IUserInfoService;
 import kopo.poly.util.CmmUtil;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.Duration;
-import java.util.Date;
 
 
 /*
@@ -41,9 +37,32 @@ public class UserInfoController {
         return "/LoginPage";
 
     }
+
     @GetMapping(value = "register")
     public String Register() {
         return "/register";
+
+    }
+    @GetMapping("/Logout")
+     public String Logout(HttpSession session, ModelMap model){
+        String msg = "로그아웃 되었습니다";
+        session.invalidate();
+        model.addAttribute("msg", msg);
+    return "/LogoutPage";
+    }
+    @GetMapping(value = "FindPwd")
+    public String FindPwd() {
+        return "/FindPwd";
+
+    }
+    @GetMapping(value = "PwdChange")
+    public String PwdChange() {
+        return "/PwdChange";
+
+    }
+    @GetMapping(value = "MyPage00")
+    public String MyPage00() {
+        return "/MyPage00";
 
     }
 
@@ -53,8 +72,7 @@ public class UserInfoController {
 
         log.info(this.getClass().getName() + ".Login start!");
         String msg = "";
-        String asdf;
-        Date now = new Date();
+
 
         String user_id = CmmUtil.nvl(request.getParameter("user_id"));
         String password = CmmUtil.nvl(request.getParameter("password"));
@@ -62,39 +80,32 @@ public class UserInfoController {
         log.info("user_id : " + user_id);
         log.info("password : " + password);
 
-        UserInfoDTO uDTO = new UserInfoDTO();
+        UserInfoDTO pDTO = new UserInfoDTO();
 
-        uDTO.setUser_id(user_id);
-        uDTO.setPassword(password);
+        pDTO.setUser_id(user_id);
+        pDTO.setPassword(password);
 
-        int result = userInfoService.Login(uDTO);
-
+        UserInfoDTO uDTO = userInfoService.Login(pDTO);
 
         msg = "로그인 성공";
 
+        if (uDTO != null) {
+            session.setAttribute("user_id", uDTO.getUser_id());
+            session.setAttribute("user_seq", uDTO.getUser_seq());
+            log.info(this.getClass().getName() + ".Login end!");
 
-        if (result != 1) {
-            msg = "로그인 실패 : ";
+            log.info(uDTO.toString());
+            // 결과 메시지 전달하기
+            model.addAttribute("msg", msg);
+            return "/MsgToLogin";
+        } else
+            msg = "아이디 또는 비밀번호를 확인해주세요.";
             model.addAttribute("msg", msg);
 
-            return "/LoginPage";
-        } else {
-            asdf = Jwts.builder()
-                    .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // (1)
-                    .setIssuer("fresh") // (2)
-                    .setIssuedAt(now) // (3)
-                    .setExpiration(new Date(now.getTime() + Duration.ofMinutes(30).toMillis())) // (4)
-                    .claim("id", "아이디") // (5)
-                    .claim("email", "ajufresh@gmail.com")
-                    .signWith(SignatureAlgorithm.HS256, "secret") // (6)
-                    .compact();
-        }
-        log.info(asdf);
-        log.info(this.getClass().getName() + ".Login end!");
-
-        // 결과 메시지 전달하기
-        model.addAttribute("msg", msg);
         return "/MsgToLogin";
+
+
+
     }
 
     @PostMapping(value = "/Userinfoinsert")
