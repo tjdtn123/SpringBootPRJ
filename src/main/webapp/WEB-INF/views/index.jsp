@@ -3,11 +3,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%! String id_session;
-    String seq_session;
+
 %>
 <%if(session.getAttribute("user_id") != null) {
     id_session = session.getAttribute("user_id").toString();
-    seq_session = session.getAttribute("user_seq").toString();
+
 }
 %>
 
@@ -92,7 +92,7 @@
                 <%}%>
                 <!--<form  required oninput="Show()">-->
                 <% if(session.getAttribute("user_id") != null){%>
-                <li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">마이페이지</a></li>
                 <li class="nav-item"><a class="nav-link" href="/Logout">로그아웃</a></li>
             <%}%>
                 <!--</form>-->

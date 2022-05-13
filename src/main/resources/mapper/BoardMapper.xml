@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="kopo.poly.persistance.mapper.IBoardMapper">
+
+
+
+	<select id="boardListCnt" resultType="int">
+		SELECT count(*)
+		FROM BOARD
+	</select>
+
+	<select id="getBoardList" resultType="BoardDTO">
+		SELECT BOARD_SEQ, TITLE, NOTICE_YN, READ_CNT, USER_NAME, USER_ID,
+			   DATE_FORMAT(REG_DT, '%Y-%m-%d') AS REG_DT
+		FROM (SELECT B.BOARD_SEQ, B.TITLE, B.NOTICE_YN, B.READ_CNT, U.USER_NAME, B.USER_ID,
+		             DATE_FORMAT(B.REG_DT, '%Y-%m-%d') AS REG_DT
+			FROM BOARD B, USER U
+			WHERE B.USER_ID = U.USER_ID
+			ORDER BY B.NOTICE_YN, B.REG_DT DESC) AS T1
+		LIMIT #{skip},#{amount}
+
+	</select>
+	<!-- 게시판 리스트 쿼리
+	<select id="getBoardList" resultType="BoardDTO">
+		SELECT B.BOARD_SEQ, B.TITLE, B.NOTICE_YN, B.READ_CNT, U.USER_NAME, B.USER_ID,
+			   DATE_FORMAT(B.REG_DT, '%Y-%m-%d') AS REG_DT
+	      FROM BOARD B, USER_INFO U
+	     WHERE B.USER_ID = U.USER_ID
+	 	 ORDER BY B.NOTICE_YN, B.REG_DT DESC
+	</select>
+	-->
+	<!-- 게시판 등록 쿼리 -->
+	<insert id="InsertBoardInfo" parameterType="BoardDTO">
+		INSERT INTO BOARD
+			(
+				BOARD_SEQ, TITLE, NOTICE_YN, CONTENTS, USER_ID, READ_CNT,
+		      	REG_ID, REG_DT, CHG_ID, CHG_DT
+			)
+		VALUES(
+			(SELECT NULLIF (MAX(A.BOARD_SEQ),0)+1 FROM BOARD A),
+			#{title}, #{notice_yn}, #{contents}, #{user_id}, 0, #{user_id}, SYSDATE(), #{user_id}, SYSDATE()
+		)
+	</insert>
+
+	<!-- 게시판 상세보기 쿼리 -->
+	<select id="getBoardInfo" resultType="BoardDTO">
+		SELECT B.BOARD_SEQ, B.TITLE, B.NOTICE_YN, B.READ_CNT, U.USER_NAME, B.USER_ID,
+			   CONTENTS, DATE_FORMAT(B.REG_DT, '%Y-%m-%d') AS REG_DT
+	      FROM BOARD B, USER U
+	     WHERE B.USER_ID = U.USER_ID
+	       AND B.BOARD_SEQ = #{board_seq}
+	</select>
+
+
+
+	<!-- 조회수 증가 쿼리 -->
+	<update id="updateBoardReadCnt" parameterType="BoardDTO">
+		UPDATE BOARD SET
+			READ_CNT = READ_CNT + 1
+		WHERE
+			BOARD_SEQ = #{board_seq}
+	</update>
+
+	<!-- 게시판 수정 쿼리 -->
+	<update id="updateBoardInfo" parameterType="BoardDTO">
+		UPDATE BOARD SET
+			TITLE = #{title},
+			NOTICE_YN = #{notice_yn},
+			CONTENTS = #{contents},
+			CHG_ID = #{user_id},
+			CHG_DT = SYSDATE()
+		WHERE
+			BOARD_SEQ = #{board_seq}
+
+	</update>
+
+	<!-- 게시판 삭제 쿼리 -->
+	<delete id="deleteBoardInfo" parameterType="BoardDTO">
+		DELETE FROM BOARD
+		WHERE BOARD_SEQ = #{board_seq}
+
+	</delete>
+			
+</mapper>

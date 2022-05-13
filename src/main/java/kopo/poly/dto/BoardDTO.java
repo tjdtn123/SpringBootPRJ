@@ -1,5 +1,6 @@
 package kopo.poly.dto;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +11,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class NoticeDTO {
+public class BoardDTO {
 
-	private String notice_seq; // 기본키, 순번
+	private String board_seq; // 기본키, 순번
 	private String title; // 제목
 	private String notice_yn; // 공지글 여부
 	private String contents; // 글 내용
@@ -22,7 +23,6 @@ public class NoticeDTO {
 	private String reg_dt; // 등록일
 	private String chg_id; // 수정자 아이디
 	private String chg_dt; // 수정일
-
 	private String user_name; // 등록자명
 
 }

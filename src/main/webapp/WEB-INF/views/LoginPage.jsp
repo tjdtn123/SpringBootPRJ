@@ -19,6 +19,21 @@ pageEncoding="UTF-8"%>
                 background-image : url("static/assets/wallpaper.jpg");
             }
         </style>
+        <script type="text/javascript">
+            function doSubmit(f) {
+                if (f.user_id.value == "") {
+                    alert("아이디를 입력하시기 바랍니다.");
+                    f.user_id.focus();
+                    return false;
+                }
+                if (f.password.value == "") {
+                    alert("비밀번호를 입력하시기 바랍니다.");
+                    f.password.focus();
+                    return false;
+                }
+            }
+        </script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript">
 

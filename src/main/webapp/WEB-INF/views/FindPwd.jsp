@@ -1,11 +1,11 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%! String id_session;
-    String seq_session;
+
 %>
 <%if(session.getAttribute("user_id") != null) {
     id_session = session.getAttribute("user_id").toString();
-    seq_session = session.getAttribute("user_seq").toString();
+
 }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -121,7 +121,17 @@
             })
         }
         function doSubmit(f){
-            if(document.getElementById('certificationYN').value == false){
+            if(f.user_id.value == ""){
+                alert("아이디를 입력하시기 바랍니다.");
+                f.user_id.focus();
+                return false;
+            }
+            if(f.certificationYN.value == "false"){
+                alert("메일 인증을 해주시기 바랍니다.");
+                f.certificationYN.focus();
+                return false;
+            }
+            if(f.document.getElementById('certificationYN').value == "false"){
                 alert('이메일 인증을 해주세요');
                 return false;
             }
@@ -130,7 +140,7 @@
 
     <script src="https://kit.fontawesome.com/2dc1583151.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-primary">
+<body class="bg-primary" name="f" method="get" action="/PwdChange" target= "ifrPrc" onsubmit="return doSubmit(this);">
 <!-- Navigation-->
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">

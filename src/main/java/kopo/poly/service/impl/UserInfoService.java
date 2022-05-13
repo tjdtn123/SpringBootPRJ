@@ -31,6 +31,15 @@ public class UserInfoService implements IUserInfoService {
        userinfoMapper.InsertUserInfo(uDTO);
 
     }
+    @Transactional
+    @Override
+    public void ChangePwd(UserInfoDTO uDTO) throws Exception {
+
+        log.info(this.getClass().getName() + ".InsertUserInfo start!");
+
+        userinfoMapper.ChangePwd(uDTO);
+
+    }
     @Override
     public int idCheck(String id) {
         int cnt = userinfoMapper.idCheck(id);

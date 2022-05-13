@@ -6,25 +6,32 @@
 
 	<!-- 회원 등록 쿼리 -->
 	<insert id="InsertUserInfo" parameterType="UserInfoDTO">
-		INSERT INTO USER_INFO
+		INSERT INTO USER
 			(
-				USER_SEQ, USER_ID, USER_NAME, PASSWORD, EMAIL, ADDR1, ADDR2,
+				USER_ID, USER_NAME, PASSWORD, EMAIL, ADDR1, ADDR2,
 		      	REG_DT
 			)
 		VALUES(
-			(SELECT NULLIF (MAX(A.USER_SEQ),0)+1 FROM USER_INFO A),
 			#{user_id}, #{user_name}, #{password}, #{email}, #{addr1}, #{addr2}, SYSDATE()
 		)
 	</insert>
+	<!-- 비밀번호 변경-->
+	<update id="ChangePwd" parameterType="UserInfoDTO">
+		UPDATE USER SET
+				 PASSWORD = #{password}
+		WHERE
+			USER_ID = #{user_id}
+	</update>
+
 
 	<!-- 아이디 중복체크 -->
 	<select id="idCheck" parameterType="String" resultType="int">
-		SELECT COUNT(USER_ID) FROM USER_INFO WHERE USER_ID = #{id}
+		SELECT COUNT(USER_ID) FROM USER WHERE USER_ID = #{id}
 	</select>
 	<!-- 로그인 -->
 	<select id="Login" parameterType="UserInfoDTO" resultType="UserInfoDTO">
-		SELECT USER_ID,PASSWORD,USER_SEQ
-		FROM USER_INFO
+		SELECT USER_ID,PASSWORD
+		FROM USER
 		WHERE USER_ID = #{user_id}
 		  AND PASSWORD = #{password}
 	</select>

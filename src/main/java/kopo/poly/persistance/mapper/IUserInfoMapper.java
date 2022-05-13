@@ -11,7 +11,12 @@ public interface IUserInfoMapper {
 	
 	//회원 가입
 	void InsertUserInfo(UserInfoDTO uDTO) throws Exception;
-		/*
+
+	//비밀번호 변경
+	void ChangePwd(UserInfoDTO uDTO) throws Exception;
+
+	/*
+
 	//게시판 상세보기
 	NoticeDTO getNoticeInfo(NoticeDTO pDTO) throws Exception;
 

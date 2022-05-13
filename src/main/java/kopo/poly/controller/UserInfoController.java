@@ -91,7 +91,6 @@ public class UserInfoController {
 
         if (uDTO != null) {
             session.setAttribute("user_id", uDTO.getUser_id());
-            session.setAttribute("user_seq", uDTO.getUser_seq());
             log.info(this.getClass().getName() + ".Login end!");
 
             log.info(uDTO.toString());
@@ -173,7 +172,60 @@ public class UserInfoController {
 
         return "/MsgToLogin";
     }
+    @PostMapping(value = "/ChangePwd")
+    public String ChangePwd(HttpSession session, HttpServletRequest request, ModelMap model) {
 
+        log.info(this.getClass().getName() + ".ChangePwd start!");
+
+        String msg = "";
+
+        try {
+            /*
+             * 게시판 글 등록되기 위해 사용되는 form객체의 하위 input 객체 등을 받아오기 위해 사용함
+             */
+            String user_id = CmmUtil.nvl((String) session.getAttribute("PwdSession")); // 아이디
+            String password = CmmUtil.nvl(request.getParameter("password")); // 제목
+
+
+            /*
+             * ####################################################################################
+             * 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함 반드시 작성할 것
+             * ####################################################################################
+             */
+            log.info("user_id : " + user_id);
+            log.info("password : " + password);
+
+            UserInfoDTO uDTO = new UserInfoDTO();
+
+            uDTO.setUser_id(user_id);
+            uDTO.setPassword(password);
+
+            /*
+             * 게시글 등록하기위한 비즈니스 로직을 호출
+             */
+            userInfoService.ChangePwd(uDTO);
+
+            // 저장이 완료되면 사용자에게 보여줄 메시지
+            msg = "변경되었습니다.";
+
+
+        } catch (Exception e) {
+
+            // 저장이 실패되면 사용자에게 보여줄 메시지
+            msg = "실패하였습니다. : " + e.getMessage();
+            log.info(e.toString());
+            e.printStackTrace();
+
+        } finally {
+            log.info(this.getClass().getName() + ".ChangePwd end!");
+
+            // 결과 메시지 전달하기
+            model.addAttribute("msg", msg);
+
+        }
+
+        return "/MsgToLogin";
+    }
     @PostMapping("/register/idCheck")
     @ResponseBody
     public int idCheck(@RequestParam("user_id") String id){
